@@ -1,0 +1,48 @@
+[Stack]
+FillEnabled=0
+OverflowWarningsEnabled=1
+WarningThreshold=90
+SpWarningsEnabled=1
+WarnLogOnly=1
+UseTrigger=1
+TriggerName=main
+LimitSize=0
+ByteLimit=50
+[DebugChecksum]
+Checksum=1422536029
+[CallStack]
+ShowArgs=0
+[Disassembly]
+MixedMode=1
+[struct_types]
+Fmt0=DeviceInfo_t-deviceID	3	0
+Fmt1=MyMsgHeader_t-destination	3	0
+[DataSample]
+LogEnabled=0
+GraphEnabled=0
+ShowTimeLog=1
+ShowTimeSum=1
+[Breakpoints]
+Bp0=_ "STD_CODE" "{$PROJ_DIR$\..\src\button.c}.944.7" 0 0 0 0 "" 0 ""
+Bp1=_ "STD_CODE" "{$PROJ_DIR$\..\src\button.c}.947.7" 0 0 0 0 "" 0 ""
+Bp2=_ "STD_CODE" "{$PROJ_DIR$\..\src\button.c}.950.7" 0 0 0 0 "" 0 ""
+Bp3=_ "STD_CODE" "{$PROJ_DIR$\..\src\button.c}.938.3" 0 0 0 0 "" 0 ""
+Bp4=_ "STD_CODE" "{$PROJ_DIR$\..\src\main.c}.488.5" 0 0 0 0 "" 0 ""
+Bp5=_ "STD_CODE" "{$PROJ_DIR$\..\src\ProtocolParser.c}.70.5" 0 0 0 0 "" 0 ""
+Bp6=_ "STD_CODE" "{$PROJ_DIR$\..\src\ProtocolParser.c}.159.7" 0 0 0 0 "" 0 ""
+Count=7
+[Log file]
+LoggingEnabled=_ 0
+LogFile=_ ""
+Category=_ 0
+[TermIOLog]
+LoggingEnabled=_ 0
+LogFile=_ ""
+[Aliases]
+A0=_ "C:\Users\Lily\Desktop\toc\smartremote-c\Project\src\button.c" ""
+A1=_ "C:\Users\Lily\Desktop\toc\smartremote-c\Project\src\common.c" ""
+A2=_ "C:\Users\Lily\Desktop\toc\smartremote-c\Project\src\main.c" ""
+Count=3
+SuppressDialog=0
+[DebuggerSettings]
+DisableInterruptsWhenStepping=0
