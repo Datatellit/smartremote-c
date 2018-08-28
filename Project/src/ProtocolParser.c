@@ -75,7 +75,9 @@ void build(uint8_t _destination, uint8_t _sensor, uint8_t _command, uint8_t _typ
     moSetCommand(_command);
     moSetRequestAck(_enableAck);
     moSetAck(_isAck);
+#ifdef ENABLE_SDTM
     memcpy(sndMsg.header.uniqueid,_uniqueID,UNIQUE_ID_LEN);
+#endif
 }
 
 void UpdateCurrentDeviceOnOff(bool _OnOff) {
@@ -317,10 +319,11 @@ uint8_t ParseProtocol(){
             CurrentDeviceCCT = _CCTValue;
           } else if( IS_RAINBOW(CurrentDeviceType) || IS_MIRAGE(CurrentDeviceType) ) {
             // Set RGBW
-            CurrentDeviceCCT = rcvMsg.payload.data[6];
-            CurrentDevice_R = rcvMsg.payload.data[7];
-            CurrentDevice_G = rcvMsg.payload.data[8];
-            CurrentDevice_B = rcvMsg.payload.data[9];
+            uint16_t _CCTValue = rcvMsg.payload.data[7] * 256 + rcvMsg.payload.data[6];
+            CurrentDeviceCCT = _CCTValue;
+            CurrentDevice_R = rcvMsg.payload.data[8];
+            CurrentDevice_G = rcvMsg.payload.data[9];
+            CurrentDevice_B = rcvMsg.payload.data[10];
           }
           gIsStatusChanged = TRUE;
           // ToDo: change On/Off LED
@@ -541,7 +544,7 @@ void Msg_DevBR_CCT(uint8_t _br, uint16_t _cct) {
 }
 
 // Set current device brightness & RGBW
-void Msg_DevBR_RGBW(uint8_t _br, uint8_t _r, uint8_t _g, uint8_t _b, uint8_t _w) {
+void Msg_DevBR_RGBW(uint8_t _br, uint8_t _r, uint8_t _g, uint8_t _b, uint16_t _cct) {
   SendMyMessage();
   lastswitch = 1;
 #ifdef HOME_VERSION
@@ -550,15 +553,16 @@ void Msg_DevBR_RGBW(uint8_t _br, uint8_t _r, uint8_t _g, uint8_t _b, uint8_t _w)
   build(CurrentDeviceID, CurrentDevSubID, C_SET, V_RGBW, 1, 0);
 #endif
   
-  moSetLength(7);
+  moSetLength(8);
   moSetPayloadType(P_CUSTOM);
   sndMsg.payload.data[0] = RING_ID_ALL;      // Ring ID: 0 means all rings
   sndMsg.payload.data[1] = 1;                // State: On
   sndMsg.payload.data[2] = _br;
-  sndMsg.payload.data[3] = _w;
-  sndMsg.payload.data[4] = _r;
-  sndMsg.payload.data[5] = _g;
-  sndMsg.payload.data[6] = _b;
+  sndMsg.payload.data[3] = (_cct>>8);
+  sndMsg.payload.data[4] = (_cct&0xFF);
+  sndMsg.payload.data[5] = _r;
+  sndMsg.payload.data[6] = _g;
+  sndMsg.payload.data[7] = _b;
   bMsgReady = 1;
 }
 

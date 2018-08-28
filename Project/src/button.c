@@ -394,10 +394,10 @@ void FN_Button_Action(uint8_t _fn) {
         uint8_t br = gConfig.fnScenario[_fn].hue.BR>BR_MIN_VALUE ? gConfig.fnScenario[_fn].hue.BR : BR_MIN_VALUE;
         Msg_DevBrightness(OPERATOR_SET,br);
       }
-      else if( gConfig.fnScenario[_fn].hue.CCT >= CT_MIN_VALUE ) {
-        Msg_DevBR_CCT(gConfig.fnScenario[_fn].hue.BR, gConfig.fnScenario[_fn].hue.CCT);
+      else if( gConfig.fnScenario[_fn].hue.R != 0 || gConfig.fnScenario[_fn].hue.G != 0 || gConfig.fnScenario[_fn].hue.B!=0 ) {
+        Msg_DevBR_RGBW(gConfig.fnScenario[_fn].hue.BR, gConfig.fnScenario[_fn].hue.R, gConfig.fnScenario[_fn].hue.G, gConfig.fnScenario[_fn].hue.B, (uint8_t)gConfig.fnScenario[_fn].hue.CCT);     
       } else {
-        Msg_DevBR_RGBW(gConfig.fnScenario[_fn].hue.BR, gConfig.fnScenario[_fn].hue.R, gConfig.fnScenario[_fn].hue.G, gConfig.fnScenario[_fn].hue.B, (uint8_t)gConfig.fnScenario[_fn].hue.CCT);
+        Msg_DevBR_CCT(gConfig.fnScenario[_fn].hue.BR, gConfig.fnScenario[_fn].hue.CCT);
       }
     }
     
@@ -444,10 +444,11 @@ void RestoreFavoriteDevStatus(uint8_t index)
 #ifdef NUM_FAVORITE
   if(index >= NUM_FAVORITE) return;
  // restore favorite status
-  if( gConfig.favoritesDevStat[index].ring.CCT >= CT_MIN_VALUE ) {
-    Msg_DevBR_CCT(gConfig.favoritesDevStat[index].ring.BR, gConfig.favoritesDevStat[index].ring.CCT);
-  } else {
+  if( gConfig.favoritesDevStat[index].ring.R != 0 || gConfig.favoritesDevStat[index].ring.G != 0 || gConfig.favoritesDevStat[index].ring.B != 0) {
     Msg_DevBR_RGBW(gConfig.favoritesDevStat[index].ring.BR, gConfig.favoritesDevStat[index].ring.R, gConfig.favoritesDevStat[index].ring.G, gConfig.favoritesDevStat[index].ring.B, gConfig.favoritesDevStat[index].ring.CCT);
+  } 
+  else {
+    Msg_DevBR_CCT(gConfig.favoritesDevStat[index].ring.BR, gConfig.favoritesDevStat[index].ring.CCT);
   }  
 #endif
 }

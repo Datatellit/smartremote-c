@@ -348,7 +348,11 @@ typedef struct
 	MyMsgPayload2_t payload;
 } MyMessage2_t;
 
-extern MyMessage_t sndMsg;
+#ifdef ENABLE_SDTM
+extern MyMessage_t rcvMsg;
+#else
+extern MyMessage2_t sndMsg;
+#endif
 extern MyMessage2_t rcvMsg;
 extern uint8_t *psndMsg;
 extern uint8_t *prcvMsg;

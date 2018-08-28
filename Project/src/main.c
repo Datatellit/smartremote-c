@@ -52,7 +52,12 @@ const UC RF24_BASE_RADIO_ID[ADDRESS_WIDTH] = {0x00,0x54,0x49,0x54,0x44};
 // Public variables
 Config_t gConfig;
 DeviceStatus_t gDevStatus[NUM_DEVICES];
+
+#ifdef ENABLE_SDTM
 MyMessage_t sndMsg;
+#else
+MyMessage2_t sndMsg;
+#endif
 MyMessage2_t rcvMsg;
 uint8_t *psndMsg = (uint8_t *)&sndMsg;
 uint8_t *prcvMsg = (uint8_t *)&rcvMsg;
@@ -354,7 +359,11 @@ void LoadConfig()
     oldCurrentDevID = gConfig.indDevice;
 #ifdef HOME_VERSION
        // Set Devices
+#ifdef ENABLE_SDTM
     gConfig.devItem[0].deviceID = 254;
+#else
+    gConfig.devItem[0].deviceID = NODEID_MAINDEVICE;
+#endif
     gConfig.devItem[0].subDevID = 0;
     // Set Fn
     /// F1 light 100,5500
@@ -385,6 +394,7 @@ void LoadConfig()
     gConfig.fnScenario[3].hue.BR = 10;
     gConfig.fnScenario[3].hue.CCT = 3000;
 #endif
+    gConfig.rfChannel = 0x73;
 }
 
 void UpdateNodeAddress(uint8_t _tx) {
@@ -404,7 +414,8 @@ void UpdateNodeAddress(uint8_t _tx) {
     if( gConfig.enSDTM ) {
       tx_addr[0] = CurrentDeviceID;
     } else {
-      tx_addr[0] = (isNodeIdRequired() ? BASESERVICE_ADDRESS : NODEID_GATEWAY);
+      tx_addr[0] = (isNodeIdRequired() ? BASESERVICE_ADDRESS : _tx);
+      //tx_addr[0] = (isNodeIdRequired() ? BASESERVICE_ADDRESS : NODEID_GATEWAY);
     }
 #endif
 
@@ -418,7 +429,15 @@ bool NeedUpdateRFAddress(uint8_t _dest) {
   if( sndMsg.header.destination == NODEID_RF_SCANNER && tx_addr[0] != NODEID_RF_SCANNER ) {
     UpdateNodeAddress(NODEID_RF_SCANNER);
     rc = TRUE;
-  } else if( sndMsg.header.destination != NODEID_RF_SCANNER && tx_addr[0] != NODEID_GATEWAY ) {
+  } else if(sndMsg.header.destination == CurrentDeviceID)
+  {
+    if(tx_addr[0] != CurrentDeviceID)
+    {
+      UpdateNodeAddress(CurrentDeviceID);
+      rc = TRUE;
+    }
+  }
+  else if( sndMsg.header.destination != NODEID_RF_SCANNER && tx_addr[0] != NODEID_GATEWAY ) {
     UpdateNodeAddress(NODEID_GATEWAY);
     rc = TRUE;
   }

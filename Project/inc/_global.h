@@ -7,12 +7,12 @@
 #include "stm8l15x_conf.h"
 #include "common.h"
 
-#define ENABLE_SDTM
+//#define ENABLE_SDTM
 //#define BATCH_TEST
 #define HOME_VERSION
 
 #ifdef HOME_VERSION
-#define SLEEP_TIME   1
+#define SLEEP_TIME   5
 #define SLEEP_BR     30
 #define NUM_FAVORITE 2  
 
