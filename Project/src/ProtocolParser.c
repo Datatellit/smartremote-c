@@ -558,8 +558,8 @@ void Msg_DevBR_RGBW(uint8_t _br, uint8_t _r, uint8_t _g, uint8_t _b, uint16_t _c
   sndMsg.payload.data[0] = RING_ID_ALL;      // Ring ID: 0 means all rings
   sndMsg.payload.data[1] = 1;                // State: On
   sndMsg.payload.data[2] = _br;
-  sndMsg.payload.data[3] = (_cct>>8);
-  sndMsg.payload.data[4] = (_cct&0xFF);
+  sndMsg.payload.data[3] = (_cct&0xFF);
+  sndMsg.payload.data[4] = (_cct>>8);
   sndMsg.payload.data[5] = _r;
   sndMsg.payload.data[6] = _g;
   sndMsg.payload.data[7] = _b;
