@@ -349,7 +349,7 @@ typedef struct
 } MyMessage2_t;
 
 #ifdef ENABLE_SDTM
-extern MyMessage_t rcvMsg;
+extern MyMessage_t sndMsg;
 #else
 extern MyMessage2_t sndMsg;
 #endif

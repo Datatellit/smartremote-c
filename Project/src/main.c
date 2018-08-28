@@ -394,7 +394,6 @@ void LoadConfig()
     gConfig.fnScenario[3].hue.BR = 10;
     gConfig.fnScenario[3].hue.CCT = 3000;
 #endif
-    gConfig.rfChannel = 0x73;
 }
 
 void UpdateNodeAddress(uint8_t _tx) {
