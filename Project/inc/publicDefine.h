@@ -5,7 +5,7 @@
 
 // Window Watchdog
 // Uncomment this line if in debug mode
-#define DEBUG_NO_WWDG
+//#define DEBUG_NO_WWDG
 
 // RF channel for the sensor net, 0-127
 #define RF24_CHANNEL	   		100

@@ -512,7 +512,6 @@ bool SendMyMessage() {
       mutex = 0;
       RF24L01_set_mode_TX();
       RF24L01_write_payload(psndMsg, PLOAD_WIDTH);
-
       WaitMutex(0x1FFFF);
       if (mutex == 1) {
         m_cntRFSendFailed = 0;
@@ -520,13 +519,14 @@ bool SendMyMessage() {
       } else if( m_cntRFSendFailed++ > MAX_RF_FAILED_TIME ) {
         // Reset RF module
         m_cntRFSendFailed = 0;
+        WWDG->CR = 0x80;
         // RF24 Chip in low power
-        RF24L01_DeInit();
+        /*RF24L01_DeInit();
         delay = 0x1FFF;
         while(delay--)feed_wwdg();
         RF24L01_init();
         NRF2401_EnableIRQ();
-        UpdateNodeAddress(NODEID_GATEWAY);
+        UpdateNodeAddress(NODEID_GATEWAY);*/
         continue;
       }
       
