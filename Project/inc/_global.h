@@ -7,7 +7,7 @@
 #include "stm8l15x_conf.h"
 #include "common.h"
 
-#define ENABLE_SDTM
+//#define ENABLE_SDTM
 //#define BATCH_TEST
 #define HOME_VERSION
 

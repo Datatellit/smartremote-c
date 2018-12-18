@@ -10,7 +10,7 @@
 // RF channel for the sensor net, 0-127
 #define RF24_CHANNEL	   		100
 
-#define NODEID_MAINDEVICE       10
+#define NODEID_MAINDEVICE       1
 
 #define BR_MIN_VALUE            1
 #define CT_MIN_VALUE            2700

@@ -40,7 +40,7 @@ void testio()
 }
 #endif
 
-#define MAX_RF_FAILED_TIME              3      // Reset RF module when reach max failed times of sending
+#define MAX_RF_FAILED_TIME              15      // Reset RF module when reach max failed times of sending
 
 
 // Timeout
@@ -454,6 +454,7 @@ void EraseCurrentDeviceInfo() {
   memcpy(CurrentNetworkID, RF24_BASE_RADIO_ID, ADDRESS_WIDTH);
   gIsChanged = TRUE;
   SaveConfig();
+  WWDG->CR = 0x80;
 #endif
 }
 
@@ -756,7 +757,10 @@ int main( void ) {
     memcpy(CurrentNetworkID, RF24_BASE_RADIO_ID, ADDRESS_WIDTH);
     UpdateNodeAddress(NODEID_GATEWAY);
   } else {
-    SayHelloToDevice(TRUE);
+    if(isNodeIdRequired())
+    {
+      SayHelloToDevice(TRUE);
+    }  
   }
 #endif
   
