@@ -417,7 +417,7 @@ void Msg_DevOnOff(uint8_t _sw) {
   {
     lastswitch = _sw;
   } 
-#ifdef HOME_VERSION
+#ifdef ENABLE_SDTM
   build(CurrentDeviceID, CurrentDevSubID, C_SET, V_STATUS, 0, 0);
 #else
   build(CurrentDeviceID, CurrentDevSubID, C_SET, V_STATUS, 1, 0);
@@ -435,7 +435,7 @@ void Msg_DevOnOffDelay(uint8_t _sw,uint8_t _br,uint8_t _unit,uint8_t time,bool i
   {
     lastswitch = _sw;
   } 
-#ifdef HOME_VERSION
+#ifdef ENABLE_SDTM
   build(CurrentDeviceID, CurrentDevSubID, C_SET, V_STATUS, 0, 0);
 #else
   build(CurrentDeviceID, CurrentDevSubID, C_SET, V_STATUS, 1, 0);
@@ -495,7 +495,7 @@ void Msg_RelayOnOff(uint8_t _sw) {
 void Msg_DevBrightness(uint8_t _op, uint8_t _br) {
   SendMyMessage();
   lastswitch = 1;
-#ifdef HOME_VERSION
+#ifdef ENABLE_SDTM
   build(CurrentDeviceID, CurrentDevSubID, C_SET, V_PERCENTAGE, 0, 0);
 #else
   build(CurrentDeviceID, CurrentDevSubID, C_SET, V_PERCENTAGE, 1, 0);
@@ -510,7 +510,7 @@ void Msg_DevBrightness(uint8_t _op, uint8_t _br) {
 // Set current device CCT
 void Msg_DevCCT(uint8_t _op, uint16_t _cct) {
   SendMyMessage();
-#ifdef HOME_VERSION
+#ifdef ENABLE_SDTM
   build(CurrentDeviceID, CurrentDevSubID, C_SET, V_LEVEL, 0, 0);
 #else
   build(CurrentDeviceID, CurrentDevSubID, C_SET, V_LEVEL, 1, 0);
@@ -527,7 +527,7 @@ void Msg_DevCCT(uint8_t _op, uint16_t _cct) {
 void Msg_DevBR_CCT(uint8_t _br, uint16_t _cct) {
   SendMyMessage();
   lastswitch = 1;
-#ifdef HOME_VERSION
+#ifdef ENABLE_SDTM
   build(CurrentDeviceID, CurrentDevSubID, C_SET, V_RGBW, 0, 0);
 #else
   build(CurrentDeviceID, CurrentDevSubID, C_SET, V_RGBW, 1, 0);
@@ -547,7 +547,7 @@ void Msg_DevBR_CCT(uint8_t _br, uint16_t _cct) {
 void Msg_DevBR_RGBW(uint8_t _br, uint8_t _r, uint8_t _g, uint8_t _b, uint16_t _cct) {
   SendMyMessage();
   lastswitch = 1;
-#ifdef HOME_VERSION
+#ifdef ENABLE_SDTM
   build(CurrentDeviceID, CurrentDevSubID, C_SET, V_RGBW, 0, 0);
 #else
   build(CurrentDeviceID, CurrentDevSubID, C_SET, V_RGBW, 1, 0);
